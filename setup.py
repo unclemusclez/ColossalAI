@@ -16,8 +16,8 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 BUILD_EXT = int(os.environ.get("BUILD_EXT", "0")) == 1
 
 # we do not support windows currently
-if sys.platform == "win32":
-    raise RuntimeError("Windows is not supported yet. Please try again within the Windows Subsystem for Linux (WSL).")
+# if sys.platform == "win32":
+#     raise RuntimeError("Windows is not supported yet. Please try again within the Windows Subsystem for Linux (WSL).")
 
 
 def fetch_requirements(path) -> List[str]:

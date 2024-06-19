@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import resource
+import psutil
 from contextlib import nullcontext
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
@@ -215,15 +215,17 @@ class CpuAccelerator(BaseAccelerator):
         """
         Returns the maximum GPU memory managed by the caching allocator in bytes for a given device.
         """
-        return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        return psutil.Process().memory_info().rss
+
 
     def set_per_process_memory_fraction(self, fraction: float, device=None) -> None:
         """
         Set memory fraction for a process.
         """
         max_memory = int(psutil.virtual_memory().total * fraction)
-        _, hard = resource.getrlimit(resource.RLIMIT_AS)
-        resource.setrlimit(resource.RLIMIT_AS, (max_memory, hard))
+        p = psutil.Process()
+        _, hard = p.rlimit.getrlimit(p.rlimit.RLIMIT_AS)
+        p.rlimit.setrlimit(p.rlimit.RLIMIT_AS, (max_memory, hard))
 
     def reset_peak_memory_stats(self, device=None) -> None:
         """
