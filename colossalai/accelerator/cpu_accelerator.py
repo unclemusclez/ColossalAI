@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import psutil
 from contextlib import nullcontext
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
@@ -216,7 +215,6 @@ class CpuAccelerator(BaseAccelerator):
         Returns the maximum GPU memory managed by the caching allocator in bytes for a given device.
         """
         return psutil.Process().memory_info().rss
-
 
     def set_per_process_memory_fraction(self, fraction: float, device=None) -> None:
         """
