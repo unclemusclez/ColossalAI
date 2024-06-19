@@ -4,7 +4,7 @@ from typing import Any, List, Optional, Tuple
 import torch
 import torch.cuda
 from torch.nn import Module
-from torch.utils._pytree import SUPPORTED_NODES, TreeSpec, _register_pytree_node, tree_flatten, tree_map, tree_unflatten
+from torch.utils._pytree import SUPPORTED_NODES, TreeSpec, register_pytree_node, tree_flatten, tree_map, tree_unflatten
 
 
 # this register are for torch under version 1.13.1, maybe removed in the future
@@ -16,7 +16,7 @@ def _odict_unflatten(values: List[Any], context: Any) -> "OrderedDict[Any, Any]"
     return OrderedDict((key, value) for key, value in zip(context, values))
 
 
-_register_pytree_node(OrderedDict, _odict_flatten, _odict_unflatten)
+register_pytree_node(OrderedDict, _odict_flatten, _odict_unflatten)
 
 
 def tree_map_hf(fn: Any, pytree: Any):
